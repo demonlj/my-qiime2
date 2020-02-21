@@ -89,6 +89,14 @@ Qiime2 更新还算频繁，虽说通过conda安装很简单，但每次安装�
    conda install --offline $n
    done
    ```
-##Note: 
+## Note: 
 
 - 仅仅适用于OSX，如果是linux，需要修改python文件中的prefix
+
+## 安装q2-studio
+npm下载electron非常慢
+```
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+pip install .
+cnpm install
+```
