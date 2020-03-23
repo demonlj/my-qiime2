@@ -2,20 +2,21 @@
 
 import os
 import hashlib
+import re
 
-prefix="https://conda.anaconda.org/qiime2/label/r2019.10/osx-64/"
 filename="qiime2.packages"
 for line in open(filename):
+    line=line.rstrip("\n")
     print(line)
-    res=line.split(':')
-    fname=res[0]
+    res=line.split(';')
+    furl=res[0]
+    fname=re.sub("^.*\/","",furl)
     fhash=res[1]
     while(not os.path.isfile(fname)):
-        os.system('wget -c '+prefix+fname)
-        with open(res[0], 'rb') as ff:
+        os.system('wget -c '+furl)
+        with open(fname, 'rb') as ff:
             data=ff.read()
         if (hashlib.md5(data).hexdigest()!=fhash):
-            #print(hashlib.md5(data).hexdigest())
-            #print(fhash)
+            print("file has : %s, not match the required hash:%s." % (hashlib.md5(data).hexdigest(), fhash))
             os.system('rm -f '+fname)
 
