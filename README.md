@@ -68,16 +68,6 @@ update for 2020.2
       conda search qiime2 --info -c qiime2/label/r2020.2 >> ~/qiime2.packages
       ```
 
-      vim编辑器
-
-      ```
-      $ vi qiime2.packages
-      :%s/^url.*: \(http.*\)\n\(md5 \+: \)/\1;/
-      :v/^http/d
-      :v/qiime2/d
-      :wq
-      ```
-
    2. 下载
 
       ```
