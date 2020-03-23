@@ -1,22 +1,33 @@
-
-
 import os
 import hashlib
 import re
 
 filename="qiime2.packages"
-for line in open(filename):
-    line=line.rstrip("\n")
-    print(line)
-    res=line.split(';')
-    furl=res[0]
-    fname=re.sub("^.*\/","",furl)
-    fhash=res[1]
-    while(not os.path.isfile(fname)):
-        os.system('wget -c '+furl)
-        with open(fname, 'rb') as ff:
-            data=ff.read()
-        if (hashlib.md5(data).hexdigest()!=fhash):
-            print("file has : %s, not match the required hash:%s." % (hashlib.md5(data).hexdigest(), fhash))
-            os.system('rm -f '+fname)
+fp=open(filename,'r')
+content=fp.read()
+fp.close()
 
+pat = re.compile("url\W*"+'(.*?)'+'timestamp',re.S)
+result = pat.findall(content)
+for item in result:
+    item=re.sub('\nmd5\W*: ',';',item)
+    item=re.sub('\n','',item)
+    if not re.search("qiime2", item):
+        continue
+    (furl, fhash)=item.split(';')
+    fname=re.sub("^.*\/","",furl)
+    while True:
+        try:
+            ff = open(fname, "rb")
+            data = ff.read()
+            nhash=hashlib.md5(data).hexdigest()
+            ff.close()
+        except IOError:
+            nhash=""
+        if nhash == fhash:
+            print("name:%s\nnew hash:%s, match the required hash:%s\n" % (fname, nhash, fhash))
+            break
+        else:
+            print("name:%s\nnew hash:%s, not match the required hash:%s\n" % (fname, nhash, fhash))
+            os.system('rm -f '+fname)
+        os.system('wget -c '+furl)
