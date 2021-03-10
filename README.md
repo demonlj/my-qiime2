@@ -25,8 +25,8 @@ update for 2021.2
    ```
    sed -i "s/conda-forge/https:\/\/mirrors.tuna.tsinghua.edu.cn\/anaconda\/cloud\/conda-forge/" qiime2-2021.2-py36-linux-conda.yml
    sed -i "s/bioconda/https:\/\/mirrors.tuna.tsinghua.edu.cn\/anaconda\/cloud\/bioconda/" qiime2-2021.2-py36-linux-conda.yml
-   sed -i "/^- q2/d" qiime2-2021.2-py36-linux-conda.yml
-   sed -i "/^- qiime2/d" qiime2-2021.2-py36-linux-conda.yml
+   sed -i "/- q2/d" qiime2-2021.2-py36-linux-conda.yml
+   sed -i "/- qiime2/d" qiime2-2021.2-py36-linux-conda.yml
    ```
 
    2. OSX
@@ -34,8 +34,8 @@ update for 2021.2
    ```
    gsed -i "s/conda-forge/https:\/\/mirrors.tuna.tsinghua.edu.cn\/anaconda\/cloud\/conda-forge/" qiime2-2021.2-py36-osx-conda.yml
    gsed -i "s/bioconda/https:\/\/mirrors.tuna.tsinghua.edu.cn\/anaconda\/cloud\/bioconda/" qiime2-2021.2-py36-osx-conda.yml
-   gsed -i "/^- q2/d" qiime2-2021.2-py36-osx-conda.yml
-   gsed -i "/^- qiime2/d" qiime2-2021.2-py36-osx-conda.yml
+   gsed -i "/- q2/d" qiime2-2021.2-py36-osx-conda.yml
+   gsed -i "/- qiime2/d" qiime2-2021.2-py36-osx-conda.yml
    ```
 
 4. 执行conda命令，速度快多了
